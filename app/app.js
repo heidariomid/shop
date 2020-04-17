@@ -6,7 +6,7 @@ require('./middlewares/')(app);
 require('./router')(app);
 
 module.exports = () => {
-    app.listen(process.env.APP_PORT, () => {
-        console.log('shop is working ...');
-    });
+	app.listen(process.env.APP_PORT, () => {
+		console.log(`shop is working on port ${process.env.WEB_PORT}`);
+	});
 };

@@ -1,0 +1,56 @@
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                سبد خرید
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>عنوان</th>
+                            <th>تصویر</th>
+                            <th>قیمت</th>
+                            <th>تعداد</th>
+                            <th>قیمت کل</th>
+                            <th>عملیات</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>عنوان</th>
+                            <th>تصویر</th>
+                            <th>قیمت</th>
+                            <th>تعداد</th>
+                            <th>قیمت کل</th>
+                            <th>عملیات</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        {{#items}}
+                        <tr>
+                            <td>{{title}}</td>
+                            <td>
+                                <img style="width:80px;" src="/assets/images/{{image}}" alt="{{title}}">
+                            </td>
+                            <td>{{formattedPrice}}</td>
+                            <td>
+                                {{count}}
+                            </td>
+                            <td>{{ formattedTotalPrice }}</td>
+                            <td>
+                                <a href="">
+                                    <i class="material-icons">
+                                        delete
+                                    </i>
+                                </a>
+                            </td>
+                        </tr>
+                        {{/items}}
+                    </tbody>
+                </table>
+                <a class="btn btn-primary" href="/basket/checkout">تکمیل خرید</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+<h1 class="text-center">در حال انتقال به درگاه بانک</h1>
+<form id="samanFrm" action="https://sep.shaparak.ir/payment.aspx" method="POST">
+    <input type="hidden" name="Amount" value="{{params.Amount}}">
+    <input type="hidden" name="ResNum" value="{{params.ResNum}}">
+    <input type="hidden" name="MID" value="{{params.MID}}">
+    <input type="hidden" name="RedirectURL" value="{{params.CallbackURL}}">
+</form>
+<script>
+    document.querySelector('#samanFrm').submit();
+</script>

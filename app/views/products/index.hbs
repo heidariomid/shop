@@ -1,0 +1,31 @@
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                محصولات {{ basket.length }}
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    {{#items}}
+                    <div class="col">
+                        <div class="card product" style="width: 18rem;">
+                            <img src="http://localhost:5000/assets/images/{{image}}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h6 class="card-title">{{title}}</h6>
+                                <h5 class="product-price text-left">{{formattedPrice}}</h5>
+                                <p class="card-text"></p>
+                                <a href="/basket/add/{{slug}}" class="btn btn-outline-success btn-block btn-icon">
+                                    <i class="material-icons">
+                                        add_shopping_cart
+                                    </i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {{/items}}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

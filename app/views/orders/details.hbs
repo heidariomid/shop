@@ -10,6 +10,11 @@
                         قیمت کل :
                         {{ order.total_price }}
                     </div>
+                    <div class="text-center">
+                       تعداد کل سفارش :
+                        {{ order.items_count }}
+                    </div>
+           
                     <div class="payment_method"><label for="cash">نقدی</label>
                         <input id="cash" type="radio" name="payment_method" value="cash"></div>
                     <div class="payment_method"><label for="online">آنلاین</label>

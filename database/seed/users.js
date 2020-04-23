@@ -1,7 +1,8 @@
 const faker = require('faker/locale/fa');
-const connection = require('../connections/mysql');
+const connection = require('../connection/mysql');
 const createUsers = async (count = 10) => {
 	const db = await connection();
+	console.log(db);
 	const users = [];
 
 	for (let counter = 1; counter <= count; counter++) {

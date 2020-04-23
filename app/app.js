@@ -1,12 +1,12 @@
 const express = require('express');
 const app = express();
-
 require('./bootstrap/')(app);
 require('./middlewares/')(app);
 require('./router')(app);
 
-module.exports = () => {
-	app.listen(process.env.APP_PORT, () => {
-		console.log(`shop is working on port ${process.env.WEB_PORT}`);
+const connection = () => {
+	app.listen(process.env.WEB_PORT, () => {
+		console.log(`app is running on port ${process.env.WEB_PORT}`);
 	});
 };
+module.exports = connection;

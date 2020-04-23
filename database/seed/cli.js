@@ -1,10 +1,9 @@
 require('dotenv').config();
 const args = process.argv;
-const seedManager = require('./database/seeds');
-const migrationManager = require('./database/migrations');
+const seedManager = require('./index');
+
 const commands = {
 	seed: seedManager,
-	migration: migrationManager,
 };
 
 const userCommand = args.slice(2);
@@ -15,7 +14,6 @@ if (!mainCommand & !Object.keys(commands).includes(mainCommand)) {
 }
 
 const commandToRun = commands[mainCommand];
-
 commandToRun(userCommand.slice(1))
 	.then((result) => {
 		console.log('operation completed successfully!');

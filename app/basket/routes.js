@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const controller = require('./controller');
+const {index, add, checkout} = require('./controller');
 
-router.get('/', controller.index);
-router.get('/add/:slug', controller.add);
-router.get('/checkout', controller.checkout);
+router.get('/', index);
+router.get('/add/:slug', add);
+router.get('/checkout', checkout);
 
 module.exports = router;

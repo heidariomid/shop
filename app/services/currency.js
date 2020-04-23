@@ -1,12 +1,12 @@
-const { toPersianNumbers } = require('./lang');
+const {persianConvert} = require('./persianConverter');
 const toCurrency = (input) => {
-    return input.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	return input.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
 const persianCurrencyToman = (input) => {
-    return toPersianNumbers(toCurrency(input)) +' تومان';
+	return persianConvert(toCurrency(input)) + 'تومان';
 };
 
 module.exports = {
-    toCurrency,
-    persianCurrencyToman
+	toCurrency,
+	persianCurrencyToman,
 };

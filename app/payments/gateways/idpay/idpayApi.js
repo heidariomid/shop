@@ -3,7 +3,7 @@ const zarinpal = ZarinpalCheckout.create('390a4a6b-4eac-4848-8e0c-d712ff530f9b',
 exports.paymentRequest = async (order) => {
 	const response = await zarinpal.PaymentRequest({
 		Amount: order.total_price,
-		CallbackURL: `https://localhost:5000/payment/verify/${order.hash}`,
+		CallbackURL: `http://localhost:5000/payment/verify/${order.hash}`,
 		Description: 'pay with zarinpal',
 		// Email: 'hi@siamak.work',
 		// Mobile: '09120000000',

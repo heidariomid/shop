@@ -4,7 +4,7 @@ const gateways = {
 	saman,
 	zarinpal,
 };
-const defaultGateway = 'zarinpal';
+const defaultGateway = 'saman';
 const generateResult = (gatewayResult) => {
 	const defaultPramas = {
 		success: false,
@@ -16,8 +16,11 @@ const generateResult = (gatewayResult) => {
 	};
 	return {...defaultPramas, ...gatewayResult};
 };
-exports.pay = async (order) => {
-	const gateway = gateways[defaultGateway];
+exports.pay = async (order, gatewayChosen = defaultGateway) => {
+	const gateway = gateways[gatewayChosen];
 	const gatewayResult = await gateway.paymentRequest(order);
 	return generateResult(gatewayResult);
+};
+exports.gatewaysPage = async (order, res) => {
+	return res.render('gateways/online', {layout: 'main', order});
 };

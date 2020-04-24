@@ -9,8 +9,10 @@ const methods = {
 	gift,
 	online,
 };
-exports.paymentMethods = (order, method) => {
+exports.paymentMethods = (order, method, res) => {
 	const paymentMethod = methods[method];
-
+	if (method === 'online') {
+		return paymentMethod.gatewaysPage(order, res);
+	}
 	return paymentMethod.pay(order);
 };

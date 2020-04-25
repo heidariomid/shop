@@ -4,28 +4,24 @@
 			<div class="card-header">
 				انتخاب درگاه پرداختی
 			</div>
-		
 			<div class="card-body">
 				<div class="row">
 					<div class="col">
-						<div class="card product" style="width: 18rem;">
-							<a href="/payment/start/saman/{{order.hash}}" class="btn btn-outline-success btn-block btn-icon">
-								<img  src="/assets/images/saman.jpg" class="card-img-top" alt="..." />
+						<form action="/payment/start/{{order.hash}}" method="post">
+							<input type="hidden" name="gateway" value="saman" />
+							<a onclick="this.parentNode.submit();">
+								<img style="width: 80px;" src="/assets/images/saman.jpg" class="card-img-top" alt="..." />
 							</a>
-						</div>
-					</div>
-					<div class="col">
-						<div class="card product" style="width: 18rem;">
-							<div class="card-body">
-								<a href="/payment/start/zarinpal/{{order.hash}}" class="btn btn-outline-success btn-block btn-icon">
-									<img src="/assets/images/zarinpal.jpg" class="card-img-top" alt="..." />
-								</a>
-							</div>
-						</div>
+						</form>
+						<form action="/payment/start/{{order.hash}}" method="post">
+							<input type="hidden" name="gateway" value="zarinpal" />
+							<a onclick="this.parentNode.submit();">
+								<img style="width: 80px;" src="/assets/images/zarinpal.jpg" class="card-img-top" alt="..." />
+							</a>
+						</form>
 					</div>
 				</div>
 			</div>
-
 		</div>
 	</div>
 </div>

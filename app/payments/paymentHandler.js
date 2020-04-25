@@ -9,10 +9,7 @@ const methods = {
 	gift,
 	online,
 };
-exports.paymentMethods = (order, method, res) => {
+exports.paymentMethods = async (order, method, gateway) => {
 	const paymentMethod = methods[method];
-	if (method === 'online') {
-		return paymentMethod.gatewaysPage(order, res);
-	}
-	return paymentMethod.pay(order);
+	return paymentMethod.pay(order, gateway);
 };

@@ -16,11 +16,8 @@ const generateResult = (gatewayResult) => {
 	};
 	return {...defaultPramas, ...gatewayResult};
 };
-exports.pay = async (order, gatewayChosen = defaultGateway) => {
-	const gateway = gateways[gatewayChosen];
-	const gatewayResult = await gateway.paymentRequest(order);
+exports.pay = async (order, gateway = defaultGateway) => {
+	const gatewayRender = gateways[gateway];
+	const gatewayResult = await gatewayRender.paymentRequest(order);
 	return generateResult(gatewayResult);
-};
-exports.gatewaysPage = async (order, res) => {
-	return res.render('gateways/online', {layout: 'main', order});
 };

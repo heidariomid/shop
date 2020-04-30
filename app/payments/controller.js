@@ -1,5 +1,7 @@
-const {findByInput} = require('./model');
-const {paymentMethods} = require('./paymentHandler');
+const microtime = require('microtime');
+const {findByInput, findByInputPay, create} = require('./model');
+const {paymentMethods, verifyPay} = require('./paymentHandler');
+const {types, status} = require('./rules/paymentMethods');
 exports.startPayment = async (req, res) => {
 	const hash = req.params.order_hash;
 	const order = await findByInput('hash', hash);
@@ -11,18 +13,42 @@ exports.startPayment = async (req, res) => {
 		method = 'online';
 	}
 	const gateway = req.body.gateway;
-	const result = await paymentMethods(order, method, gateway);
+	const payment = await create({
+		order_id: order.id,
+		type: types[method.toUpperCase()],
+		amount: order.total_price,
+		res_num: microtime.now(),
+		hash: order.hash,
+		status: status.PENDING,
+		gateway,
+	});
+	const result = await paymentMethods(payment, method, gateway);
 	if (!result.success) {
-		res.render('gateways/error');
+		return res.render('gateways/error', {layout: 'main'});
 	}
 	if (result.mustRedirect) {
-		res.redirect(result.redirectUrl);
+		return res.redirect(result.redirectUrl);
 	}
 	if (result.mustRenderForm) {
-		res.render(result.formViewPath, {layout: 'main', params: result.viewParams});
+		return res.render(result.formViewPath, {layout: 'main', params: result.viewParams});
 	}
 };
 exports.verifyPayment = async (req, res) => {
 	const paymentHash = req.params.payment_hash;
-	res.render('gateways/error');
+	const payment = await findByInputPay('hash', paymentHash);
+	const verifyResult = await verifyPay(
+		payment,
+		{
+			query: req.query,
+			body: req.body,
+			params: req.params,
+		},
+		payment.gateway,
+	);
+
+	if (!verifyResult.success) {
+		return res.render('gateways/error', {layout: 'main', params: verifyResult});
+	}
+
+	return res.render('gateways/success', {layout: 'main', params: verifyResult});
 };

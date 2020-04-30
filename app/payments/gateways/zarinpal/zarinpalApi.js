@@ -1,9 +1,9 @@
 const ZarinpalCheckout = require('zarinpal-checkout');
 const zarinpal = ZarinpalCheckout.create('adf540fa-18c3-11e9-a86b-005056a205be', false);
-exports.paymentRequest = async (order) => {
+exports.paymentRequest = async (payment) => {
 	const response = await zarinpal.PaymentRequest({
-		Amount: order.total_price,
-		CallbackURL: `http://localhost:5000/payment/verify/${order.hash}`,
+		Amount: payment.amount,
+		CallbackURL: `http://localhost:5500/payment/verify/${payment.hash}`,
 		Description: 'pay with zarinpal',
 		// Email: 'hi@siamak.work',
 		// Mobile: '09120000000',
@@ -22,10 +22,22 @@ exports.paymentRequest = async (order) => {
 	}
 };
 
-exports.verifyRequest = async (order) => {
-	const result = zarinpal.PaymentVerification({
-		Amount: order.total_price,
-		Authority: '000000000000000000000000000000000000',
+exports.verifyRequest = async (payment, params) => {
+	const response = await zarinpal.PaymentVerification({
+		Amount: payment.amount,
+		Authority: params.query.Authority,
 	});
-	return result;
+
+	if (response.status === -21) {
+		return {
+			success: false,
+			message: 'can not verify',
+			ref_num: response.RefID,
+		};
+	} else {
+		return {
+			success: true,
+			ref_num: response.RefID,
+		};
+	}
 };

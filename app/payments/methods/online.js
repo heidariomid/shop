@@ -16,8 +16,13 @@ const generateResult = (gatewayResult) => {
 	};
 	return {...defaultPramas, ...gatewayResult};
 };
-exports.pay = async (order, gateway = defaultGateway) => {
+exports.pay = async (payment, gateway = defaultGateway) => {
 	const gatewayRender = gateways[gateway];
-	const gatewayResult = await gatewayRender.paymentRequest(order);
+	const gatewayResult = await gatewayRender.paymentRequest(payment);
 	return generateResult(gatewayResult);
+};
+exports.verify = async (payment, params, gateway = defaultGateway) => {
+	const gatewayRender = gateways[gateway];
+	const gatewayResult = await gatewayRender.verifyRequest(payment, params);
+	return gatewayResult;
 };
